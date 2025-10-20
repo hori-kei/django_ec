@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.views import View
+from django.views.generic import ListView
+from .models import Product
 
 
-class ProductListView(View):
-    def get(self, request):
-        # 後でここでDBから商品一覧を取得する
-        return render(request, "products/list.html")
+class ProductListView(ListView):
+    template_name = "products/list.html"
+    model = Product
+    
