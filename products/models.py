@@ -1,3 +1,13 @@
+
 from django.db import models
 
-# Create your models here.
+class Product(models.Model):
+    class Meta:
+        db_table = "product"
+
+    name = models.CharField(verbose_name="商品名", max_length=100)
+    price = models.IntegerField(verbose_name="価格")
+    image = models.CharField(verbose_name="商品画像URL", max_length=255)
+
+    def __str__(self):
+        return self.name
