@@ -31,7 +31,12 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ["django-ec-app.herokuapp.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    "django-ec-app.herokuapp.com",
+    "django-ec-app-ec5c6820c5b0.herokuapp.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition
