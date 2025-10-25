@@ -89,10 +89,12 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": env.db(),
 }
-# Heroku環境にDATABASE_URLがある場合はそれを優先
-if "DATABASE_URL" in os.environ:
+# Heroku環境のみ SSLを有効化
+if "DYNO" in os.environ:  # ← Heroku環境ではDYNOが自動で設定される
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
+else:
+    # Docker / ローカルではSSLを無効化
+    DATABASES["default"]["OPTIONS"] = {"sslmode": "disable"}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
