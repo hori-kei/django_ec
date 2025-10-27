@@ -126,6 +126,16 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Media files (ユーザーアップロード用)
+MEDIA_URL = "/media/"
+
+if "CLOUDINARY_URL" in os.environ:
+    INSTALLED_APPS += ["cloudinary", "cloudinary_storage"]
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+    # MEDIA_ROOTはCloudinary使用時は不要（外部ストレージに保存）
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
