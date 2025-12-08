@@ -4,7 +4,7 @@ from .base import *
 
 # 本番環境用設定
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
