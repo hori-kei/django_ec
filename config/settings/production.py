@@ -14,4 +14,6 @@ DATABASES["default"] = dj_database_url.config(
     ssl_require=True,
 )
 
+STORAGES["default"]["BACKEND"] = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
 STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
