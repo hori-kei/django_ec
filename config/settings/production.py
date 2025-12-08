@@ -5,3 +5,6 @@ from .base import *
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
+
+
+STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
