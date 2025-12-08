@@ -8,7 +8,7 @@ class Product(models.Model):
 
     name = models.CharField("商品名", max_length=100)
     price = models.IntegerField("価格", default=0)
-    image = models.CharField("画像", max_length=255)
+    image = models.ImageField("画像", upload_to="product_images/", blank=True, null=True)
     created_at = models.DateTimeField("掲載日", auto_now_add=True)
 
     def __str__(self):
