@@ -19,3 +19,10 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = "product/product_detail.html"
     context_object_name = "product"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["related_products"] = Product.objects.exclude(pk=self.object.pk).order_by(
+            "-created_at"
+        )[:4]
+        return context
