@@ -18,12 +18,20 @@ class ProductCreateView(CreateView):
     template_name = "control/manage_create.html"
     success_url = reverse_lazy("control:manage_list")
 
+    def form_valid(self, form):
+        messages.success(self.request, "新しい商品を追加しました")
+        return super().form_valid(form)
+
 
 class ProductUpdateView(UpdateView):
     model = Product
     fields = ("name", "price", "image")
     template_name = "control/manage_create.html"
     success_url = reverse_lazy("control:manage_list")
+
+    def form_valid(self, form):
+        messages.success(self.request, "商品を編集しました")
+        return super().form_valid(form)
 
 
 class ProductDeleteView(DeleteView):
