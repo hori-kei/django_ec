@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                {% if product.image %}
+                <img class="card-img-top mb-5 mb-md-0" src="{{ product.image.url }}" alt="{{ product.name }}" />
+                {% else %}
+                <img class="card-img-top mb-5 mb-md-0" src="{% static 'assets/dummy450x300.png' %}" alt="{{ product.name }}" />
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
+                <div class="fs-5 mb-5">
+                <span>¥{{ product.price }}</span>
+                </div>
+
+                {# 説明フィールドがまだ無い場合でも落ちないようにする #}
+                {% if product.description %}
+                <p class="lead">{{ product.description }}</p>
+                {% endif %}
+
+                <div class="d-flex gap-2">
+                <a class="btn btn-outline-dark" href="{% url 'product:product_list' %}">一覧に戻る</a>
+                <button class="btn btn-outline-dark flex-shrink-0" type="button" disabled>
+                    <i class="bi-cart-fill me-1"></i>
+                    Add to cart
+                </button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    {# Related Products #}
+    <section class="py-5 bg-light">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h2 class="fw-bolder mb-4">Related products</h2>
+
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                {% for related in related_products %}
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        {# 画像 #}
+                        {% if related.image %}
+                            <img class="card-img-top" src="{{ related.image.url }}" alt="{{ related.name }}">
+                        {% else %}
+                            <img class="card-img-top" src="{% static 'assets/dummy450x300.png' %}" alt="{{ related.name }}">
+                        {% endif %}
+
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h5 class="fw-bolder">{{ related.name }}</h5>
+                                ¥{{ related.price }}
+                            </div>
+                        </div>
+
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto" href="{% url 'product:product_detail' related.pk %}">
+                                    View
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                    <p>関連商品はありません。</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
