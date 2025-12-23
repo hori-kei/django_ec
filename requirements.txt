@@ -8,3 +8,4 @@ whitenoise
 dj-database-url
 cloudinary
 django-cloudinary-storage
+django-basicauth

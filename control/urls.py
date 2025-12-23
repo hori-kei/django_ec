@@ -1,3 +1,4 @@
+from basicauth.decorators import basic_auth_required
 from django.urls import path
 
 from .views import (
@@ -10,8 +11,18 @@ from .views import (
 app_name = "control"
 
 urlpatterns = [
-    path("products/", ManageListView.as_view(), name="manage_list"),
-    path("products/create/", ProductCreateView.as_view(), name="manage_create"),
-    path("products/<int:pk>/edit/", ProductUpdateView.as_view(), name="manage_edit"),
-    path("products/<int:pk>/delete/", ProductDeleteView.as_view(), name="manage_delete"),
+    path("products/", basic_auth_required(ManageListView.as_view()), name="manage_list"),
+    path(
+        "products/create/", basic_auth_required(ProductCreateView.as_view()), name="manage_create"
+    ),
+    path(
+        "products/<int:pk>/edit/",
+        basic_auth_required(ProductUpdateView.as_view()),
+        name="manage_edit",
+    ),
+    path(
+        "products/<int:pk>/delete/",
+        basic_auth_required(ProductDeleteView.as_view()),
+        name="manage_delete",
+    ),
 ]
