@@ -5,6 +5,9 @@
 {% block content %}
     <section class="py-5">
         <div class="container">
+            <div class="d-flex justify-content-top mb-3">
+                <a class="btn btn-primary" href="{% url 'control:manage_create' %}">商品を追加</a>
+            </div>
             <h2 class="mb-3">商品一覧</h2>
 
             <table class="table">
@@ -23,6 +26,9 @@
                             <td>{{ product.name }}</td>
                             <td>{{ product.price }}</td>
                             <td>{{ product.created_at }}</td>
+                            <td><a class="btn btn-sm btn-outline-secondary" href="{% url 'control:manage_edit' product.pk %}">編集</a>
+                                <a class="btn btn-sm btn-outline-danger" href="{% url 'control:manage_delete' product.pk %}">削除</a>
+                            </td>
                         </tr>
                     {% empty %}
                         <tr><td colspan="4">商品がありません</td></tr>
