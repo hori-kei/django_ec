@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}商品削除{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-3">商品削除</h2>
+
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4 d-flex align-items-center justify-content-center">
+                    {% if object.image %}
+                        <img src="{{ object.image.url }}" class="img-fluid rounded-start" alt="{{ object.name }}">
+                    {% else %}
+                        <div class="text-center">画像なし</div>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ object.name }}</h5>
+                        <p class="card-text">{{ object.price }} 円</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <p>「<strong>{{ object.name }}</strong>」を削除しますか？</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">削除する</button>
+            <a href="{% url 'control:manage_list' %}" class="btn btn-secondary ms-2">キャンセル</a>
+        </form>
+    </div>
+{% endblock %}
+
+

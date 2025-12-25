@@ -17,3 +17,7 @@ DATABASES["default"] = dj_database_url.config(
 STORAGES["default"]["BACKEND"] = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+# Basic Auth
+BASICAUTH_USERS = {env("BASIC_AUTH_USER"): env("BASIC_AUTH_PASSWORD")}

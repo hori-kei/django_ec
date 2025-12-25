@@ -53,6 +53,16 @@
             </div>
         </header>
         <!-- Section-->
+        {% if messages %}
+            <div class="container mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         {% block content %}{% endblock  %}
         <!-- Footer-->
         <footer class="py-5 bg-dark">
