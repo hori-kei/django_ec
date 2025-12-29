@@ -29,3 +29,14 @@ class CartDetailView(TemplateView):
         cart = get_or_create_cart(self.request)
         context["cart_items"] = CartItem.objects.filter(cart=cart).select_related("product")
         return context
+
+
+class RemoveCartView(View):
+    def post(self, request, item_id):
+        cart = get_or_create_cart(request)
+
+        # 自分のカートの item しか削除できないようにする
+        cart_item = get_object_or_404(CartItem, pk=item_id, cart=cart)
+        cart_item.delete()
+
+        return redirect("cart:detail")
