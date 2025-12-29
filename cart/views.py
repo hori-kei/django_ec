@@ -1,6 +1,7 @@
 # cart/views.py
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
+from django.views.generic import TemplateView
 
 from product.models import Product
 
@@ -17,4 +18,14 @@ class AddToCartView(View):
         cart_item.quantity += 1
         cart_item.save()
 
-        return redirect("product:product_list")
+        return redirect("cart:detail")
+
+
+class CartDetailView(TemplateView):
+    template_name = "cart/cart_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cart = get_or_create_cart(self.request)
+        context["cart_items"] = CartItem.objects.filter(cart=cart).select_related("product")
+        return context
