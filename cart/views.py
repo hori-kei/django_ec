@@ -14,8 +14,16 @@ class AddToCartView(View):
         cart = get_or_create_cart(request)
         product = get_object_or_404(Product, pk=product_id)
 
+        quantity = request.POST.get("quantity", "1")
+        try:
+            quantity = int(quantity)
+        except ValueError:
+            quantity = 1
+        if quantity < 1:
+            quantity = 1
+
         cart_item, _created = CartItem.objects.get_or_create(cart=cart, product=product)
-        cart_item.quantity += 1
+        cart_item.quantity += quantity
         cart_item.save()
 
         return redirect("cart:detail")

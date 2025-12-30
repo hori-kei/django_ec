@@ -34,6 +34,7 @@
                                     <div class="text-center">
                                         <form action="{% url 'cart:add' product.id %}" method="post">
                                             {% csrf_token %}
+                                            <input type="hidden" name="quantity" value="1">
                                             <button type="submit" class="btn btn-outline-dark mt-auto">
                                                 Add to cart
                                             </button>

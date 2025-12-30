@@ -26,12 +26,17 @@
                 <p class="lead">{{ product.description }}</p>
                 {% endif %}
 
-                <div class="d-flex gap-2">
-                <a class="btn btn-outline-dark" href="{% url 'product:product_list' %}">一覧に戻る</a>
-                <button class="btn btn-outline-dark flex-shrink-0" type="button" disabled>
-                    <i class="bi-cart-fill me-1"></i>
-                    Add to cart
-                </button>
+            <div class="d-flex gap-2 align-items-center">
+                <a class="btn btn-outline-dark" href="{% url 'product:product_list' %}">戻る</a>
+
+                <form action="{% url 'cart:add' product.id %}" method="post" class="d-flex gap-2 align-items-center mb-0">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="1" min="1" class="form-control" style="max-width: 110px;">
+                    <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        Add to cart
+                    </button>
+                </form>
                 </div>
             </div>
             </div>
