@@ -1,4 +1,6 @@
 # Create your models here.
+from decimal import Decimal
+
 from django.db import models
 
 
@@ -7,7 +9,7 @@ class Product(models.Model):
         db_table = "product"
 
     name = models.CharField("商品名", max_length=100)
-    price = models.IntegerField("価格", default=0)
+    price = models.DecimalField("価格", max_digits=10, decimal_places=0)
     image = models.ImageField("画像", upload_to="product_images/", blank=True, null=True)
     created_at = models.DateTimeField("掲載日", auto_now_add=True)
 

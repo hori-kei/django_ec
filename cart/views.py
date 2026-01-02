@@ -1,4 +1,5 @@
-# cart/views.py
+from decimal import Decimal
+
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from django.views.generic import TemplateView
@@ -35,7 +36,11 @@ class CartDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cart = get_or_create_cart(self.request)
-        context["cart_items"] = CartItem.objects.filter(cart=cart).select_related("product")
+
+        cart_items = CartItem.objects.filter(cart=cart).select_related("product")
+        context["cart_items"] = cart_items
+
+        context["total_price"] = sum((item.subtotal for item in cart_items), Decimal("0"))
         return context
 
 

@@ -36,3 +36,7 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"CartItem(cart={self.cart_id}, product={self.product_id}, qty={self.quantity})"
+
+    @property
+    def subtotal(self):
+        return self.product.price * self.quantity
